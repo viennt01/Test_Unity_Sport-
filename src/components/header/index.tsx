@@ -1,6 +1,23 @@
-import { Button, Flex, Image } from "antd";
+"use client";
+import { Button, Flex, Image, Modal } from "antd";
+import { useState } from "react";
+import PlayerSimulation from "../game";
 
 export default function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Flex
       style={{
@@ -30,6 +47,7 @@ export default function Header() {
             fontWeight: 600,
             fontSize: 12,
           }}
+          onClick={showModal}
         >
           <Image preview={false} alt="logo" src="/images/Football-icon.svg" />
           FOOTBALL
@@ -42,6 +60,14 @@ export default function Header() {
         width={36}
         height={36}
       />
+      <Modal
+        title="Mô phỏng trò chơi bóng đá ma"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <PlayerSimulation />
+      </Modal>
     </Flex>
   );
 }
